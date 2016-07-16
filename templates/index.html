@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<style type="text/css">
+  body{color:#efd;background:#453;padding:0 5em;margin:0}
+  h1{padding:2em 1em;background:#675}
+  h2{color:#bf8;border-top:1px dotted #fff;margin-top:2em}
+  a{color:#bf8;padding:1em 1em;background:#675}
+  p{margin:1em 0}
+</style>
+<body>
+{% if not request.user.is_authenticated %}
+<a href="{% url 'register' %}">注册</a>
+{% endif %}
+{% if request.user.is_authenticated %}
+    <p>{{ request.user }}您已经登录</p>
+    <h1>欢迎使用西南交大选课系统！</h1>
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}注意: {% endif %}
+            {{ message }}
+        </li>
+            {% endfor %}
+    </ul>
+    {% endif %}
+    <a href="{% url 'mooc_list'%}">查看开课列表</a>
+    <a href="{% url 'show_my_course' %}">查看我的课程</a>
+
+    <a href="{% url 'logout' %}">登出</a>
+{% else %}
+    <p>您还没有登录<a href="{% url 'login' %}">登录</a></p>
+{% endif %}
+</body>
+</html>

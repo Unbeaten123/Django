@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<style type="text/css">
+  body{color:#efd;background:#453;padding:0 5em;margin:0}
+  p{padding:1em 1em;background:#675}
+  a{color:#bf8;border-top:1px;margin-top:2em;background:#675}
+  h2{color:#bf8;border-top:1px dotted #fff;margin-top:2em}
+</style>
+<body>
+<p>
+课程号：
+{{ md.id }}
+</p>
+<p>
+课程名称：
+{{ md.course_name }}
+</p>
+<p>
+开课时间：
+{{ md.course_time }}
+</p>
+<p>
+开课学院：
+{{ md.get_course_subject_display }}
+</p>
+<p>
+周学时：
+{{ md.course_consume }}
+</p>
+<p>
+上课时间：
+{{ md.course_index }}
+</p>
+<p>
+课程简介:
+{{ md.course_description }}
+</p>
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+        {{ message }}
+    </li>
+        {% endfor %}
+</ul>
+{% endif %}
+<br>
+<a href="{% url 'course_add' id=md.id %}">添加课程</a>
+<br>
+<a href="{% url 'course_delete' id=md.id %}">退选课程</a>
+<br>
+<a href="{% url 'course_detect' id=md.id %}">冲突检测</a>
+<br>
+<a href="{% url 'show_who_choose_this_class' id=md.id %}">查看已选同学</a>
+<br><br><br><br>
+<a href="{% url 'back' id=1 %}">返回主菜单</a>
+</body>
+</html>
